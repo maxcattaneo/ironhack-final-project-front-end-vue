@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.0.13",
     "@supabase/supabase-js": "^1.35.6",
     "pinia": "^2.0.18",
     "pinia-plugin-persist": "^1.0.0",
