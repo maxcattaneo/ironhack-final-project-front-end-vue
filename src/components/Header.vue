@@ -4,9 +4,9 @@
             <h1>Welcome back, Max 👋</h1>
         </div>
         <div class="flex">
-            <HomeIcon class="h-6 w-6"/>
-            <CalendarDaysIcon class="h-6 w-6"/>
-            <span>
+            <router-link to="/"><HomeIcon class="h-6 w-6"/></router-link>
+            <span class="mx-8 flex">
+                <CalendarDaysIcon class="h-6 w-6 mx-2"/>
                 23 Ene 2023
             </span>
             <UserIcon class="h-6 w-6"/>

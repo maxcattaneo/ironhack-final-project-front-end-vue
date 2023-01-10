@@ -1,5 +1,5 @@
 <template>
-    <div class="w-[320px] h-[180px] bg-[#CCDCE1] rounded-md border-2 flex flex-col justify-center items-center">
+    <div class="w-[320px] h-[180px] bg-[#CCDCE1] rounded-md border-2 flex flex-col justify-center items-center mb-8">
         <span class="font-semibold text-xl">Vacaciones Tenerife</span>
         <div class="flex">
             <CalendarDaysIcon class="h-6 w-6 mr-1"/>
