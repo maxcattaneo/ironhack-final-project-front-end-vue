@@ -4,14 +4,15 @@
             <h1>Welcome back, {{ userStore.user.email }} 👋</h1>
         </div>
         <div class="flex">
-            <router-link to="/"><HomeIcon class="h-6 w-6"/></router-link>
+            <router-link to="/"><HomeIcon class="h-6 w-6 hover:stroke-gray-500"/></router-link>
             <span class="mx-8 flex" >
                 <CalendarDaysIcon class="h-6 w-6 mx-2"/>
-                {{day}} / {{month}} / {{year}}
+            <span class="font-semibold">{{day}} / {{month}} / {{year}}</span>
             </span>
-            <button class="flex">
-                <UserIcon @click="signOut" class="h-6 w-6"/>
-                <h1>log out</h1>
+            <button @click="signOut"  class="flex">
+                <!--<UserIcon @click="signOut" class="h-6 w-6"/>-->
+                <ArrowRightOnRectangleIcon class="h-6 w-6 hover:stroke-gray-500 "/>
+                <h1 class="hover:text-gray-500 font-semibold">Log out</h1>
             </button>
         </div>
 
@@ -26,6 +27,7 @@ import { useRouter } from "vue-router";
 import { CalendarDaysIcon } from '@heroicons/vue/24/outline';
 import { HomeIcon } from '@heroicons/vue/24/outline';
 import { UserIcon } from '@heroicons/vue/24/outline';
+import { ArrowRightOnRectangleIcon } from '@heroicons/vue/24/outline';
 
 const day = ref( new Date().getDate());
 const month = ref( new Date().getMonth() + 1 );

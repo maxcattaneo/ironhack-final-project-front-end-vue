@@ -5,23 +5,48 @@ import { supabase } from "../supabase";
 
 export const useTaskStore = defineStore("tasks", {
   state: () => ({
-    tasks: "comprar",
+    toDoTasks: null,
+    doingTasks: null,
+    doneTasks: null
   }),
   actions: {
-    async fetchTasks() {
+    async fetchToDoTasks(projectId) {
       const { data: tasks } = await supabase
-        .from("tasks")
+        .from("Tasks")
         .select("*")
+        .eq("project_id", projectId)
+        .eq("status",1)
         .order("id", { ascending: false });
-      this.tasks = tasks;
+      this.toDoTasks= tasks;
     },
-    /*async addTask(task) {
-      const { task, error } = await supabase
+    async fetchDoingTasks(projectId) {
+      const { data: tasks } = await supabase
+        .from("Tasks")
+        .select("*")
+        .eq("project_id", projectId)
+        .eq("status",2)
+        .order("id", { ascending: false });
+      this.doingTasks= tasks;
+    },
+    async fetchDoingTasks(projectId) {
+      const { data: tasks } = await supabase
+        .from("Tasks")
+        .select("*")
+        .eq("project_id", projectId)
+        .eq("status",2)
+        .order("id", { ascending: false });
+      this.doneTasks= tasks;
+    },
+    async addTask(newTask) {
+      const { tasks, error } = await supabase
         .from('tasks')
         .insert([
-    { name: task }
-  ])
-    }*/
+          { title: newTask.value ,status:1 },
+        ]);
+        if (error) throw error;
+        if (tasks) this.tasks = tasks;
+    }
+
     // Hacer POST
     // Hacer el PUT (edit)
     // Hacer el delete

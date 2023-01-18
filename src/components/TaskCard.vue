@@ -1,5 +1,5 @@
 <template>
-    <div class="w-[320px] h-[180px] rounded-md border-2 flex flex-col justify-evenly items-center mb-8">
+    <div class="w-[320px] h-[180px] rounded-xl border-2 flex flex-col justify-evenly items-center mb-8">
         <div class="flex flex-col text-center ">
             <span class="font-semibold text-xl">Comprar vuelos</span>
             <div class="flex">

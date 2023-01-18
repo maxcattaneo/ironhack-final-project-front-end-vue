@@ -22,25 +22,30 @@
         <button @click="signUp" class="bg-white border-solid border-2 border-gray-400 w-[300px]  hover:bg-gray-400 text-black  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
           Sign up
         </button>
-        <h1 class="m-3 font-semibold ">Ya tienes cuenta? <button class="text-zinc-500 hover:text-black ">Login</button></h1>
+        <h1 class="m-3 font-semibold ">Already have an account? <button class="text-zinc-500 hover:text-black ">Login</button></h1>
       </div>
     </form>
 </template>
 
 <script setup>
 import {ref} from "vue";
-import {useUserStore} from '../store/user'
+import {useUserStore} from '../store/user';
+import { useRouter } from "vue-router";
+
 const userStore = ref (useUserStore());
 const email = ref("");
 const password = ref("");
 const repeatPassword = ref("");
+const router = useRouter();
 
 async function  signUp() {
+  if (password.value === repeatPassword.value) {
   try {
-    await useUserStore().signUp(email.value, password.value);
+    await userStore.signUp(email.value, password.value);
+    router.push({ path: "/auth" })
   } catch(e) {
     alert(e.message);
-  }
+  }}
 };
 
 </script>
