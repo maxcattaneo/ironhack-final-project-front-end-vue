@@ -9,7 +9,7 @@
     </div>
     <div class="grid grid-cols-3 justify-center  justify-items-center mx-40 ">
       <div v-for="(actualProject, index) in projectStore.projects" :key="index" >
-        <router-link to="/project"><ProjectCard @deleteCard="deleteProject(actualProject.id)" :projectCard="actualProject"/></router-link> 
+        <ProjectCard @deleteCard="deleteProject(actualProject.id)" :projectCard="actualProject"/> 
       </div>
     </div>
     <div class="flex justify-center">
