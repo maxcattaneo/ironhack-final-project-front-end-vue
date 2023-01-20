@@ -25,7 +25,8 @@ const emits = defineEmits (["deleteCard"]);
 
 function deleteProject(){
     emits("deleteCard");
-}
+};
+
 
 
 </script>

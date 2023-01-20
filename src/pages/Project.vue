@@ -6,31 +6,31 @@
     <div class="flex justify-evenly">
         <div class="w-[450px] pt-16">
             <div class="flex justify-between">
-                <h1 class="font-semibold text-2xl text-gray-500 pb-10 ml-16 ">To do ({{ taskStore.toDoTasks.length }})</h1>
+                <h1 class="font-semibold text-2xl text-gray-500 pb-10 ml-16 ">To do ()</h1>
                 <form  class="pb-10">
-                    <button @click.prevent="addTask" class="bg-gray-200 rounded-full px-2 text-gray-700 text-xl font-bold">+</button>
-                    <input type="text" placeholder="  Add a new task!" v-model="newTask">
+                    <button @click.prevent="addTask" class="bg-gray-200 rounded-full px-2 mr-2 text-gray-700 text-xl font-bold">+</button>
+                    <input type="text" class= "focus:outline-none" placeholder="Add a new task!" v-model="newTask">
                 </form>
             </div>
             <div class="flex flex-col justify-center items-center text-center">
                 <div v-for="(actualTask, index) in taskStore.toDoTasks" :key="index" >
-                    <TaskCard @deleteTask="deleteTask(actualTask.id)" :taskCard="actualTask"/>
+                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @updateStatus="updateStatus(actualTask.id)" :taskCard="actualTask"/>
                 </div>
             </div>
         </div>
         <div class="w-[450px] pt-16">
             <div class="flex items-center">
-                <h1 class="font-semibold text-2xl text-gray-500 pb-10 ml-16 ">Doing ({{ taskStore.doingTasks.length }})</h1>
+                <h1 class="font-semibold text-2xl text-gray-500 pb-10 ml-16 ">Doing ()</h1>
             </div>
             <div class="flex flex-col justify-center items-center text-center ">
                 <div v-for="(actualTask, index) in taskStore.doingTasks" :key="index" >
-                    <TaskCard @deleteTask="deleteTask(actualTask.id)" :taskCard="actualTask"/>
+                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @updateStatus3="updateStatus3(actualTask.id)" :taskCard="actualTask"/>
                 </div>
             </div>  
         </div>
         <div class="w-[450px] pt-16">
             <div class="flex items-center">
-                <h1 class="font-semibold text-2xl text-[#538898] pb-10 ml-16 ">Done ({{ taskStore.doneTasks.length }})</h1>
+                <h1 class="font-semibold text-2xl text-[#538898] pb-10 ml-16 ">Done ()</h1>
             </div>
             <div class="flex flex-col justify-center items-center text-center ">
                 <div v-for="(actualTask, index) in taskStore.doneTasks" :key="index" >
@@ -57,18 +57,20 @@ const taskStore = useTaskStore();
 const newTask = ref ("");
 
 fetchToDoTasks();
-fetchDoingTasks();
-fetchDoneTasks();
+//fetchDoingTasks();
+//fetchDoneTasks();
 
 async function fetchToDoTasks() {
   try {
     await taskStore.fetchToDoTasks(18);
+    await taskStore.fetchDoingTasks(18);
+    await taskStore.fetchDoneTasks(18);
   }
   catch(e){
     alert(e.message);
   }
 };
-async function fetchDoingTasks() {
+/*async function fetchDoingTasks() {
   try {
     await taskStore.fetchDoingTasks(18);
   }
@@ -83,7 +85,7 @@ async function fetchDoneTasks() {
   catch(e){
     alert(e.message);
   }
-};
+};*/
 
 async function  addTask() {
   try {
@@ -99,7 +101,20 @@ async function  addTask() {
 async function deleteTask(TaskId) {
   await taskStore.deleteTask(TaskId);
   await taskStore.fetchToDoTasks();
-  
+  await taskStore.fetchDoingTasks();
+  await taskStore.fetchDoneTasks();
+};
+
+async function updateStatus(TaskId) {
+  await taskStore.updateStatus(TaskId);
+  await taskStore.fetchToDoTasks();
+  await taskStore.fetchDoingTasks();
+};
+
+async function updateStatus3(TaskId) {
+  await taskStore.updateStatus3(TaskId);
+  await taskStore.fetchDoingTasks();
+  await taskStore.fetchDoneTasks();
 };
 
 

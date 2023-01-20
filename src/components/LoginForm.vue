@@ -16,9 +16,12 @@
       <button @click="login" class="bg-white border-solid border-2 border-gray-400 w-[300px]  hover:bg-gray-400 text-black  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
         Log in
       </button>
-      <button @click="changeLogin" class="bg-white  hover:text-black text-gray-400 w-[300px]   font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-        Sign up
-      </button>
+      <div class="flex font-semibold">
+        <h1 class="mt-3">Don't have an account?</h1>
+        <button @click="changeLogin" class="bg-white  hover:text-black text-gray-400 pt-3 px-2 rounded focus:outline-none focus:shadow-outline" type="button">
+          Sign up
+        </button>
+      </div>
     </div>
   </form>
 </template>

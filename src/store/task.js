@@ -57,6 +57,20 @@ export const useTaskStore = defineStore("tasks", {
         .delete()
         .eq("id", TaskId);
     },
+    async updateStatus(TaskId) {
+      const { data, error } = await supabase
+        .from("Tasks")
+        .update({ status: 2 })
+        .eq("id", TaskId);
+      if (error) throw error;
+    },
+    async updateStatus3(TaskId) {
+      const { data, error } = await supabase
+        .from("Tasks")
+        .update({ status: 3 })
+        .eq("id", TaskId);
+      if (error) throw error;
+    },
 
     // Hacer POST
     // Hacer el PUT (edit)

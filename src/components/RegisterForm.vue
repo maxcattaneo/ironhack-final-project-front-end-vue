@@ -22,7 +22,12 @@
         <button @click="signUp" class="bg-white border-solid border-2 border-gray-400 w-[300px]  hover:bg-gray-400 text-black  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
           Sign up
         </button>
-        <h1 class="m-3 font-semibold ">Already have an account? <button class="text-zinc-500 hover:text-black ">Login</button></h1>
+        <div class="flex">
+          <h1 class="mt-3 pr-2 font-semibold ">Already have an account?</h1>
+          <button class="bg-white  hover:text-black text-gray-400  font-semibold  pt-3">
+            Login
+          </button>
+        </div>
       </div>
     </form>
 </template>
