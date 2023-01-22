@@ -9,7 +9,7 @@
     </div>
     <div class="grid grid-cols-3 justify-center  justify-items-center mx-40 ">
       <div v-for="(actualProject, index) in projectStore.projects" :key="index" >
-        <ProjectCard @deleteCard="deleteProject(actualProject.id)" :projectCard="actualProject"/> 
+        <ProjectCard @deleteProject="deleteProject(actualProject.id)" :projectCard="actualProject"/> 
       </div>
     </div>
     <div class="flex justify-center">
@@ -18,10 +18,10 @@
 </template>
 
 <script setup>
+
 import {ref} from "vue";
 import {useProjectStore} from '../store/project'
 import {useUserStore} from '../store/user'
-
 import ProjectCard from "../components/ProjectCard.vue";
 import Header from "../components/Header.vue";
 
@@ -39,7 +39,6 @@ async function fetchProjects() {
     alert(e.message);
   }
 };
-
 
 async function  addProject() {
   try {

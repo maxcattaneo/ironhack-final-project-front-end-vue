@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue"
 import Auth from "../pages/Auth.vue"
 import Project from "../pages/Project.vue"
+
 const routes = [
   {
     path: "/",
@@ -14,7 +15,7 @@ const routes = [
     component: Auth ,
   },
   {
-    path: "/project",
+    path: "/project/:id",
     name: "project",
     component: Project ,
   },

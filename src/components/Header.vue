@@ -26,7 +26,6 @@ import {useUserStore} from '../store/user'
 import { useRouter } from "vue-router";
 import { CalendarDaysIcon } from '@heroicons/vue/24/outline';
 import { HomeIcon } from '@heroicons/vue/24/outline';
-import { UserIcon } from '@heroicons/vue/24/outline';
 import { ArrowRightOnRectangleIcon } from '@heroicons/vue/24/outline';
 
 const day = ref( new Date().getDate());
@@ -36,19 +35,14 @@ const router = useRouter();
 const userStore = useUserStore();
 
 async function  signOut() {
-  try
-  {
-    await userStore.singOut();
-    router.push({ path: "/auth" });
-}
-catch(e){
- alert(e.message);
-}
+    try {
+        await userStore.singOut();
+        router.push({ path: "/auth" });
+    }
+    catch(e){
+        alert(e.message);
+    }
 };
-
-
-
-
 
 </script>
 

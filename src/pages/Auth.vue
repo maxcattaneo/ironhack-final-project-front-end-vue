@@ -14,9 +14,9 @@
  
 <script setup>
 import {ref} from "vue";
-import {useUserStore} from '../store/user'
 import LoginForm from "../components/LoginForm.vue"; 
 import RegisterForm from "../components/RegisterForm.vue";
+
 const login = ref(true);
 function change() {
     login.value = !login.value;
@@ -25,5 +25,5 @@ function change() {
 </script>
  
 <style>
- 
+
 </style>
