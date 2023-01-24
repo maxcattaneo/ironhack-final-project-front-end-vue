@@ -14,8 +14,8 @@
         </div>
         <div class="flex justify-center items-center ">
             <div class="bg-[#CCDCE1] px-4 py-1 rounded-2xl ">{{taskCard.level}}</div>
-            <span class="mx-4">23 Ene 2023</span>
-            <PencilIcon class="h-6 w-6"/>
+            <span class="mx-4">{{ taskCard.date }}</span>
+            <PencilIcon @click="showEditTask" class="h-6 w-6 hover:text-[#FFBF00]"/>
             <TrashIcon @click="deleteTask" class="h-6 w-6 hover:text-[#EC7357] ml-2"/>
         </div>
     </div>
@@ -23,6 +23,7 @@
 
 <script setup>
 
+import {ref} from "vue";
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
 import { PencilIcon } from '@heroicons/vue/24/outline';
 import { TrashIcon } from '@heroicons/vue/24/outline';
@@ -31,7 +32,7 @@ import { FaceSmileIcon } from '@heroicons/vue/24/outline';
 
 
 const props = defineProps(['taskCard']);
-const emits = defineEmits (["deleteTask, updateStatus, updateStatus3"]);
+const emits = defineEmits(["deleteTask", "updateStatus", "updateStatus3", "showEditTask"]);
 
 
 function deleteTask(){
@@ -42,6 +43,10 @@ function updateStatus(){
 };
 function updateStatus3(){
     emits("updateStatus3")
+};
+function showEditTask(){
+    console.log('hello from task')
+    emits("showEditTask")
 };
 
 

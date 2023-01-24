@@ -1,7 +1,7 @@
 <template>
     <Header/>
     <div class="font-semibold text-3xl text-gray-500 mt-10 text-center ">
-        <h1>Vacaciones Milan {{ }}</h1>
+        <h1>Vacaciones Milan {{ route.params.id}}</h1>
     </div>
     <div class="flex justify-evenly   ">
         <div class="w-[430px] pt-12">
@@ -14,7 +14,7 @@
             </div>
             <div class="flex flex-col justify-center items-center text-center">
                 <div v-for="(actualTask, index) in taskStore.toDoTasks" :key="index" >
-                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @updateStatus="updateStatus(actualTask.id)" :taskCard="actualTask"/>
+                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @showEditTask="showEditTask" @updateStatus="updateStatus(actualTask.id)" :taskCard="actualTask"/>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
             </div>
             <div class="flex flex-col justify-center items-center text-center ">
                 <div v-for="(actualTask, index) in taskStore.doingTasks" :key="index" >
-                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @updateStatus3="updateStatus3(actualTask.id)" :taskCard="actualTask"/>
+                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @showEditTask="showEditTask" @updateStatus3="updateStatus3(actualTask.id)" :taskCard="actualTask"/>
                 </div>
             </div>  
         </div>
@@ -34,16 +34,17 @@
             </div>
             <div class="flex flex-col justify-center items-center text-center ">
                 <div v-for="(actualTask, index) in taskStore.doneTasks" :key="index" >
-                    <TaskCard @deleteTask="deleteTask(actualTask.id)" :taskCard="actualTask"/>
+                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @showEditTask="showEditTask" :taskCard="actualTask" :taskCards="actualTask"/>
                 </div>
             </div>  
         </div>
     </div>
-    <div>
-      <EditTaskCard/>
+    <div v-if="show">
+      <EditTaskForm @showEditTask="showEditTask" />
+      <Overlay/>
     </div>
     <div class="flex justify-center">
-        <h1 class="text-3xl font-bold ">Cards .</h1>
+        <h1 class="text-3xl font-bold absolute bottom-2  ">Cards .</h1>
     </div>
 </template>
 
@@ -52,13 +53,23 @@
 import {ref} from "vue";
 import {useTaskStore} from '../store/task';
 import {useProjectStore} from '../store/project';
+import { useRoute } from 'vue-router'
 import Header from '../components/Header.vue';
 import TaskCard from '../components/TaskCard.vue';
-import EditTaskCard from '../components/EditTaskForm.vue';
+import EditTaskForm from '../components/EditTaskForm.vue';
+import Overlay from '../components/Overlay.vue'
 
+const route = useRoute()
 const projectStore = useProjectStore();
 const taskStore = useTaskStore();
 const newTask = ref ("");
+const show = ref(false);
+const projectId = ref(route.params.id)
+
+function showEditTask() {
+  console.log('editing')
+    show.value = !show.value;
+}
 
 //const toDo = taskStore.toDoTasks.length;
 //const doing = taskStore.doingTasks.length;
@@ -66,22 +77,20 @@ const newTask = ref ("");
 
 
 fetchToDoTasks();
-//fetchDoingTasks();
-//fetchDoneTasks();
+fetchDoingTasks();
+fetchDoneTasks();
 
 async function fetchToDoTasks() {
   try {
-    await taskStore.fetchToDoTasks(18);
-    await taskStore.fetchDoingTasks(18);
-    await taskStore.fetchDoneTasks(18);
+    await taskStore.fetchToDoTasks(projectId.value);
   }
   catch(e){
     alert(e.message);
   }
 };
-/*async function fetchDoingTasks() {
+async function fetchDoingTasks() {
   try {
-    await taskStore.fetchDoingTasks(18);
+    await taskStore.fetchDoingTasks(projectId.value);
   }
   catch(e){
     alert(e.message);
@@ -89,16 +98,16 @@ async function fetchToDoTasks() {
 };
 async function fetchDoneTasks() {
   try {
-    await taskStore.fetchDoneTasks(18);
+    await taskStore.fetchDoneTasks(projectId.value);
   }
   catch(e){
     alert(e.message);
   }
-};*/
+};
 
 async function  addTask() {
   try {
-    await taskStore.addTask(newTask.value,projectStore.projects[0].id);
+    await taskStore.addTask(newTask.value,projectId.value);
     newTask.value="";
     await taskStore.fetchToDoTasks();
   }
@@ -125,6 +134,8 @@ async function updateStatus3(TaskId) {
   await taskStore.fetchDoingTasks();
   await taskStore.fetchDoneTasks();
 };
+
+
 
 </script>
 

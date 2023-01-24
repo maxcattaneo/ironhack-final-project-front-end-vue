@@ -44,10 +44,10 @@ export const useTaskStore = defineStore("tasks", {
       if (error) throw error;
       if (Tasks) this.Tasks = Tasks;
     },
-    async editTask(editName, TaskId) {
+    async editTask(newTaskName,editComment,selectedOption,selectedDate, TaskId) {
       const { data, error } = await supabase
         .from("Tasks")
-        .update({ name: editName })
+        .update({ name: newTaskName, comment: editComment, level: selectedOption, date: selectedDate })
         .eq("id", TaskId);
       if (error) throw error;
     },
