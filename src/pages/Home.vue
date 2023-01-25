@@ -51,10 +51,6 @@ async function  addProject() {
   }
 };
 
-async function editCardProject(editName , idProject) {
-  await projectStore.editProject(editName,idProject);
-  await projectStore.fetchProjects();
-};
 
 async function deleteProject(idProject) {
   await projectStore.deleteProject(idProject);
