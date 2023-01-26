@@ -1,9 +1,7 @@
 <template>
     <div class="w-[320px] h-[180px] rounded-xl border-2 flex flex-col justify-evenly  mb-8">
         <div class="flex justify-end mr-8 ">
-            <RocketLaunchIcon @click="updateStatus" class="h-6 w-6 hover:text-[#538898]"/>
-            <RocketLaunchIcon @click="updateStatus3" class="h-6 w-6 hover:text-[#538898]"/>
-            <FaceSmileIcon class="h-6 w-6"/>
+            <RocketLaunchIcon @click="updateStatus" v-if="show" class="h-6 w-6 hover:text-[#538898]"/>
         </div>
         <div class="flex flex-col text-center items-center">
             <span class="font-semibold text-xl">{{ taskCard.name }}</span>
@@ -28,26 +26,29 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
 import { PencilIcon } from '@heroicons/vue/24/outline';
 import { TrashIcon } from '@heroicons/vue/24/outline';
 import { RocketLaunchIcon } from '@heroicons/vue/24/outline';
-import { FaceSmileIcon } from '@heroicons/vue/24/outline';
+
 
 
 const props = defineProps(['taskCard']);
-const emits = defineEmits(["deleteTask", "updateStatus", "updateStatus3", "showEditTask"]);
+const emits = defineEmits(["deleteTask", "updateStatus", "showEditTask"]);
+const show = ref(true);
+
 
 
 function deleteTask(){
     emits("deleteTask");
 };
 function updateStatus(){
+    alert("Update status antes del emit")
     emits("updateStatus")
 };
-function updateStatus3(){
-    emits("updateStatus3")
-};
+
 function showEditTask(){
     console.log('hello from task')
-    emits("showEditTask")
+    emits("showEditTask", props.taskCard)
 };
+
+
 
 
 

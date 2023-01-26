@@ -1,51 +1,53 @@
 <template>
     <Header/>
     <div class="font-semibold text-3xl text-gray-500 mt-10 text-center ">
-        <h1>Vacaciones Milan</h1>
+        <h1>{{ projectId }}</h1>
     </div>
     <div class="flex justify-evenly   ">
         <div class="w-[430px] pt-12">
             <div class="flex justify-between">
-                <h1 class="font-semibold text-2xl text-gray-500 pb-10 ml-16 ">To do ({{ taskStore.toDoTasks.length }})</h1>
+                <h1 class="font-semibold text-2xl text-gray-500 pb-10 ml-6 ">To do ({{ taskStore.toDoTasks.length }})</h1>
                 <form  class="pb-10">
-                    <button @click.prevent="addTask" class="bg-gray-200 rounded-full px-2 mr-2 text-gray-700 text-xl font-bold">+</button>
-                    <input type="text" class= "focus:outline-none" placeholder="Add a new task!" v-model="newTask">
+                    <button @click.prevent="addTask" class="bg-gray-200 rounded-full px-2 mr-2 text-gray-700 hover:bg-[#CCDCE1] text-xl font-bold">+</button>
+                    <span placeholder="Add a new task!">Add a new task!</span>
                 </form>
             </div>
             <div class="flex flex-col justify-center items-center text-center">
                 <div v-for="(actualTask, index) in taskStore.toDoTasks" :key="index" >
-                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @showEditTask="showEditTask" @updateStatus="updateStatus(actualTask.id)" :taskCard="actualTask"/>
-                </div>
+                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @showEditTask="showEditTask" @updateStatus="updateStatus(actualTask.id, actualTask.status )" :taskCard="actualTask"/>
+                  </div>
             </div>
         </div>
         <div class="w-[430px] pt-12">
             <div class="flex items-center">
-                <h1 class="font-semibold text-2xl text-gray-500 pb-10 ml-16 ">Doing ({{ taskStore.doingTasks.length }})</h1>
+                <h1 class="font-semibold text-2xl text-gray-500 pb-10 ml-10 ">Doing ({{ }})</h1>
             </div>
             <div class="flex flex-col justify-center items-center text-center ">
                 <div v-for="(actualTask, index) in taskStore.doingTasks" :key="index" >
-                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @showEditTask="showEditTask" @updateStatus3="updateStatus3(actualTask.id)" :taskCard="actualTask"/>
+                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @showEditTask="showEditTask" @updateStatus="updateStatus(actualTask.id, actualTask.status)" :taskCard="actualTask"/>
                 </div>
             </div>  
         </div>
         <div class="w-[430px] pt-12">
             <div class="flex items-center">
-                <h1 class="font-semibold text-2xl text-[#538898] pb-10 ml-16 ">Done ({{ taskStore.doneTasks.length }})</h1>
+                <h1 class="font-semibold text-2xl text-[#538898] pb-10 ml-10 ">Done ({{ }})</h1>
             </div>
             <div class="flex flex-col justify-center items-center text-center ">
                 <div v-for="(actualTask, index) in taskStore.doneTasks" :key="index" >
-                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @showEditTask="showEditTask" :taskCard="actualTask" :taskCards="actualTask"/>
+                    <TaskCard @deleteTask="deleteTask(actualTask.id)" @showEditTask="showEditTask" @updateStatus="updateStatus(actualTask.id, actualTask.status)" :taskCard="actualTask" :taskCards="actualTask"/>
                 </div>
             </div>  
         </div>
     </div>
-    <div v-if="show">
-      <EditTaskForm @showEditTask="showEditTask" />
-      <Overlay/>
-    </div>
+    
     <div class="flex justify-center">
         <h1 class="text-3xl font-bold absolute bottom-2  ">Cards .</h1>
     </div>
+    <div v-if="show">
+      <EditTaskForm :taskEdit="editingTask" @savedCard="refreshAllList" @cancelCard="refreshAllList" />
+      <Overlay/>
+    </div>
+    
 </template>
 
 <script setup> 
@@ -65,11 +67,18 @@ const taskStore = useTaskStore();
 const newTask = ref ("");
 const show = ref(false);
 const projectId = ref(route.params.id)
+let editingTask= ref ("");
 
 
+
+refreshAllList();
+
+function refreshAllList() {
 fetchToDoTasks();
 fetchDoingTasks();
 fetchDoneTasks();
+show.value = false
+};
 
 async function fetchToDoTasks() {
   try {
@@ -98,11 +107,13 @@ async function fetchDoneTasks() {
 
 async function  addTask() {
   try {
-    await taskStore.addTask(newTask.value,projectId.value);
-    newTask.value="";
-    await taskStore.fetchToDoTasks(projectId.value);
-    await taskStore.fetchDoingTasks(projectId.value);
-    await taskStore.fetchDoneTasks(projectId.value);
+    alert("cargar nuevo objecto vacio");
+    var newTask = new Object();
+    newTask.id = 0;
+    newTask.status = 1;
+    newTask.project_id = projectId.value;
+    editingTask.value = newTask;
+    show.value = true;
   }
   catch(e){
     alert(e.message);
@@ -116,22 +127,28 @@ async function deleteTask(TaskId) {
   await taskStore.fetchDoneTasks(projectId.value);
 };
 
-async function updateStatus(TaskId) {
-  await taskStore.updateStatus(TaskId);
-  await taskStore.fetchToDoTasks(projectId.value);
-  await taskStore.fetchDoingTasks(projectId.value);
-};
-
-async function updateStatus3(TaskId) {
-  await taskStore.updateStatus3(TaskId);
+async function updateStatus(TaskId, actualStatus) {
+  alert ("estoy en update pagina")
+  let newStatus = 0
+  if(actualStatus == 1) {
+    newStatus = 2;
+  } else if (actualStatus == 2) {
+    newStatus = 3;
+  } else {
+    alert ("error")
+  }
+  await taskStore.updateTaskStatus(TaskId, newStatus);
   await taskStore.fetchToDoTasks(projectId.value);
   await taskStore.fetchDoingTasks(projectId.value);
   await taskStore.fetchDoneTasks(projectId.value);
 };
 
-function showEditTask() {
-  console.log('editing')
-    show.value = !show.value;
+
+
+function showEditTask(tareaActual) {
+  alert("cargando tarea acutal" )
+  editingTask.value = tareaActual;
+    show.value = true;
 };
 
 

@@ -3,7 +3,7 @@
     <div class="flex justify-items-center py-16">
     <h1 class="font-semibold text-4xl text-gray-500 pl-36 mr-8">Mis proyectos</h1>
     <form class="mt-3">
-        <button @click.prevent="addProject" class="bg-gray-200 rounded-full px-2 mr-2 text-gray-700 text-xl font-bold">+</button>
+        <button @click.prevent="addProject" class="bg-gray-200 rounded-full px-2 mr-2 text-gray-700 hover:bg-[#CCDCE1] text-xl font-bold">+</button>
         <input type="text" class= "focus:outline-none leading-relaxed  " placeholder="Add a new project!" v-model="newProject">
     </form>
     </div>

@@ -1,31 +1,32 @@
 <template>
     <div class="w-[400px] h-[300px] bg-white rounded-xl border-2 ml-14   absolute inset-1/3  z-10">
-        <h1 class="font-semibold text-xl text-center mt-10 mb-5"> Edit Task</h1>
+        <h1 class="font-semibold text-xl text-center mt-10 mb-5">Task settings</h1>
         <form>
             <div class="ml-20">
             <div class="mb-1">
                 <label class="mr-2 font-semibold">Nombre:</label>
-                <input v-model="newTaskName" type="text">
+                <input v-model="taskEdit.name" type="text">
             </div>
             <div class="mb-1">
                 <label class="mr-2 font-semibold">Comentario:</label>
-                <input v-model="editComment" type="text">
+                <input v-model="taskEdit.comment" type="text">
             </div>
             <div class="mb-1">
                 <label class="mr-2 font-semibold">Fecha limite:</label>
-                <input v-model="selectedDate" type="date" />
+                <input v-model="taskEdit.date" type="date" />
             </div>
             <div class="mb-1">
                 <label class="mr-2 font-semibold">Dificultad:</label>
-                <select v-model="selectedOption" class="hover:bg-[#CCDCE1]">
+                <select v-model="taskEdit.level" class="hover:bg-[#CCDCE1]">
                     <option v-for="option in options" :value="option">{{ option }}</option>
                 </select>
             </div>
             </div>
             <div class="text-center m-10">
-                <button @click.prevent="submitForm" class="border-solid border-2  px-2 hover:bg-[#CCDCE1] text-black font-semibold rounded mr-2">Edit task</button>
-                <button @click="cancelForm" class="border-solid border-2  px-2 hover:bg-[#FAD5CD] text-black font-semibold rounded">Cancel</button>
+                <button @click="submitForm(taskEdit)" type="button" class="border-solid border-2  px-2 hover:bg-[#CCDCE1] text-black font-semibold rounded mr-2">Save</button>
+                <button @click="cancelForm" type="button" class="border-solid border-2  px-2 hover:bg-[#FAD5CD] text-black font-semibold rounded">Cancel</button>
             </div>
+            
             
             
         </form>
@@ -43,16 +44,32 @@ const editComment = ref ("");
 const selectedDate = ref ("");
 const selectedOption = ref ("");
 const options = ['easy', 'middle', 'difficult'];
+const props = defineProps(['taskEdit']);
+const emits = defineEmits (["savedCard", "cancelCard"]);
   
-async function submitForm(newTaskName,editComment,selectedOption,selectedDate, TaskId) {
-    console.log("hellooou");
-    await taskStore.editTask(newTaskName.value, editComment.value,selectedOption.value, selectedDate.value, TaskId);
+async function submitForm(taskEdit) {
+    alert("Estoy en el submit")
+    if(taskEdit.id != 0)
+    {
+        await taskStore.editTask(taskEdit.name,taskEdit.comment, taskEdit.level, taskEdit.date, taskEdit.id);
+    }
+    else
+    {
+        await taskStore.addTask(taskEdit.name,taskEdit.comment,taskEdit.level,taskEdit.date, taskEdit.project_id);
+    }
+    
+    emits ("savedCard");
+   
     // handle form submit logic
 };
 
-function cancelForm() {
+async function cancelForm() {
+    emits ("cancelCard");
+   
     // handle form cancel logic
 };
+
+console.log(props.taskEdit)
 
 </script>
 
