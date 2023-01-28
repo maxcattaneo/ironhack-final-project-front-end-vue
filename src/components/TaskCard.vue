@@ -2,6 +2,7 @@
     <div class="w-[320px] h-[180px] rounded-xl border-2 flex flex-col justify-evenly  mb-8">
         <div class="flex justify-end mr-8 ">
             <RocketLaunchIcon @click="updateStatus" v-if="show" class="h-6 w-6 hover:text-[#538898]"/>
+            <h1 class="font-semibold text-[#538898]" v-else>Tarea completada!</h1>
         </div>
         <div class="flex flex-col text-center items-center">
             <span class="font-semibold text-xl">{{ taskCard.name }}</span>
@@ -27,27 +28,20 @@ import { PencilIcon } from '@heroicons/vue/24/outline';
 import { TrashIcon } from '@heroicons/vue/24/outline';
 import { RocketLaunchIcon } from '@heroicons/vue/24/outline';
 
-
-
 const props = defineProps(['taskCard']);
 const emits = defineEmits(["deleteTask", "updateStatus", "showEditTask"]);
 const show = ref(true);
-
 
 
 function deleteTask(){
     emits("deleteTask");
 };
 function updateStatus(){
-    alert("Update status antes del emit")
     emits("updateStatus")
 };
-
 function showEditTask(){
-    console.log('hello from task')
     emits("showEditTask", props.taskCard)
 };
-
 
 
 

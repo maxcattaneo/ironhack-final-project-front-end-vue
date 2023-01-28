@@ -1,15 +1,15 @@
 <template>
     <Header/>
     <div class="font-semibold text-3xl text-gray-500 mt-10 text-center ">
-        <h1>{{ projectId }}</h1>
+      <h1>Mis tareas</h1>
     </div>
-    <div class="flex justify-evenly   ">
+    <div class="flex justify-evenly ">
         <div class="w-[430px] pt-12">
             <div class="flex justify-between">
                 <h1 class="font-semibold text-2xl text-gray-500 pb-10 ml-6 ">To do ({{ taskStore.toDoTasks.length }})</h1>
                 <form  class="pb-10">
                     <button @click.prevent="addTask" class="bg-gray-200 rounded-full px-2 mr-2 text-gray-700 hover:bg-[#CCDCE1] text-xl font-bold">+</button>
-                    <span placeholder="Add a new task!">Add a new task!</span>
+                    <span class="text-gray-400">Añadir nueva tarea!</span>
                 </form>
             </div>
             <div class="flex flex-col justify-center items-center text-center">
@@ -20,7 +20,7 @@
         </div>
         <div class="w-[430px] pt-12">
             <div class="flex items-center">
-                <h1 class="font-semibold text-2xl text-gray-500 pb-10 ml-10 ">Doing ({{ }})</h1>
+                <h1 class="font-semibold text-2xl text-gray-500 pb-10 ml-10 ">Doing ({{ taskStore.doingTasks.length }})</h1>
             </div>
             <div class="flex flex-col justify-center items-center text-center ">
                 <div v-for="(actualTask, index) in taskStore.doingTasks" :key="index" >
@@ -30,7 +30,7 @@
         </div>
         <div class="w-[430px] pt-12">
             <div class="flex items-center">
-                <h1 class="font-semibold text-2xl text-[#538898] pb-10 ml-10 ">Done ({{ }})</h1>
+                <h1 class="font-semibold text-2xl text-[#538898] pb-10 ml-10 ">Done ({{ taskStore.doneTasks.length }} of {{ taskStore.doneTasks.length + taskStore.doingTasks.length + taskStore.toDoTasks.length}})</h1>
             </div>
             <div class="flex flex-col justify-center items-center text-center ">
                 <div v-for="(actualTask, index) in taskStore.doneTasks" :key="index" >
@@ -64,11 +64,10 @@ import Overlay from '../components/Overlay.vue'
 const route = useRoute()
 const projectStore = useProjectStore();
 const taskStore = useTaskStore();
-const newTask = ref ("");
 const show = ref(false);
 const projectId = ref(route.params.id)
 let editingTask= ref ("");
-
+let nameProject= ref (""); 
 
 
 refreshAllList();
@@ -80,6 +79,7 @@ fetchDoneTasks();
 show.value = false
 };
 
+
 async function fetchToDoTasks() {
   try {
     await taskStore.fetchToDoTasks(projectId.value);
@@ -88,6 +88,7 @@ async function fetchToDoTasks() {
     alert(e.message);
   }
 };
+
 async function fetchDoingTasks() {
   try {
     await taskStore.fetchDoingTasks(projectId.value);
@@ -96,6 +97,7 @@ async function fetchDoingTasks() {
     alert(e.message);
   }
 };
+
 async function fetchDoneTasks() {
   try {
     await taskStore.fetchDoneTasks(projectId.value);
@@ -107,8 +109,7 @@ async function fetchDoneTasks() {
 
 async function  addTask() {
   try {
-    alert("cargar nuevo objecto vacio");
-    var newTask = new Object();
+    let newTask = new Object();
     newTask.id = 0;
     newTask.status = 1;
     newTask.project_id = projectId.value;
@@ -128,14 +129,13 @@ async function deleteTask(TaskId) {
 };
 
 async function updateStatus(TaskId, actualStatus) {
-  alert ("estoy en update pagina")
-  let newStatus = 0
+  let newStatus = " "
   if(actualStatus == 1) {
     newStatus = 2;
   } else if (actualStatus == 2) {
     newStatus = 3;
   } else {
-    alert ("error")
+    alert ("Tarea completada!")
   }
   await taskStore.updateTaskStatus(TaskId, newStatus);
   await taskStore.fetchToDoTasks(projectId.value);
@@ -143,15 +143,10 @@ async function updateStatus(TaskId, actualStatus) {
   await taskStore.fetchDoneTasks(projectId.value);
 };
 
-
-
 function showEditTask(tareaActual) {
-  alert("cargando tarea acutal" )
   editingTask.value = tareaActual;
     show.value = true;
 };
-
-
 
 </script>
 

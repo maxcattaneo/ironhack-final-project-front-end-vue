@@ -1,7 +1,7 @@
 <template>
     <header class="h-20 border-b-2 flex justify-between items-center text-center px-10">
         <div class="font-semibold text-2xl ">
-            <h1>Welcome back, {{ userStore.user.email }} 👋</h1>
+            <h1>Welcome, {{ userStore.user.email }} 👋</h1>
         </div>
         <div class="flex">
             <router-link to="/"><HomeIcon class="h-6 w-6 hover:stroke-gray-500"/></router-link>
@@ -10,12 +10,10 @@
             <span class="font-semibold">{{day}} / {{month}} / {{year}}</span>
             </span>
             <button @click="signOut"  class="flex">
-                <!--<UserIcon @click="signOut" class="h-6 w-6"/>-->
                 <ArrowRightOnRectangleIcon class="h-6 w-6 hover:stroke-gray-500 "/>
                 <h1 class="hover:text-gray-500 font-semibold">Log out</h1>
             </button>
         </div>
-
     </header>
 </template>
 

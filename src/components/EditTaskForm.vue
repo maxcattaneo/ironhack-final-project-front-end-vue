@@ -17,7 +17,7 @@
             </div>
             <div class="mb-1">
                 <label class="mr-2 font-semibold">Dificultad:</label>
-                <select v-model="taskEdit.level" class="hover:bg-[#CCDCE1]">
+                <select v-model="taskEdit.level" class="">
                     <option v-for="option in options" :value="option">{{ option }}</option>
                 </select>
             </div>
@@ -25,10 +25,7 @@
             <div class="text-center m-10">
                 <button @click="submitForm(taskEdit)" type="button" class="border-solid border-2  px-2 hover:bg-[#CCDCE1] text-black font-semibold rounded mr-2">Save</button>
                 <button @click="cancelForm" type="button" class="border-solid border-2  px-2 hover:bg-[#FAD5CD] text-black font-semibold rounded">Cancel</button>
-            </div>
-            
-            
-            
+            </div>  
         </form>
     </div>
 </template>
@@ -48,25 +45,16 @@ const props = defineProps(['taskEdit']);
 const emits = defineEmits (["savedCard", "cancelCard"]);
   
 async function submitForm(taskEdit) {
-    alert("Estoy en el submit")
-    if(taskEdit.id != 0)
-    {
+    if(taskEdit.id != 0) {
         await taskStore.editTask(taskEdit.name,taskEdit.comment, taskEdit.level, taskEdit.date, taskEdit.id);
-    }
-    else
-    {
+    } else {
         await taskStore.addTask(taskEdit.name,taskEdit.comment,taskEdit.level,taskEdit.date, taskEdit.project_id);
     }
-    
     emits ("savedCard");
-   
-    // handle form submit logic
 };
 
 async function cancelForm() {
     emits ("cancelCard");
-   
-    // handle form cancel logic
 };
 
 console.log(props.taskEdit)

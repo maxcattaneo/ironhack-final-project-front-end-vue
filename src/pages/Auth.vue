@@ -1,7 +1,7 @@
 <template>
-    <section class="flex">
+    <section class="flex ">
       <div>
-        <img class="h-screen " src="https://i.pinimg.com/originals/b9/b7/d0/b9b7d05effe72f4abda5f6b43d5f60e2.jpg" alt="">
+        <img class="h-screen" src="https://i.pinimg.com/originals/b9/b7/d0/b9b7d05effe72f4abda5f6b43d5f60e2.jpg" alt="">
       </div>
       <div class="flex flex-col justify-center items-center mx-auto">
         <h1 class="text-3xl font-bold m-10">Cards .</h1>

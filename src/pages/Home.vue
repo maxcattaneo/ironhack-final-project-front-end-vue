@@ -4,12 +4,12 @@
     <h1 class="font-semibold text-4xl text-gray-500 pl-36 mr-8">Mis proyectos</h1>
     <form class="mt-3">
         <button @click.prevent="addProject" class="bg-gray-200 rounded-full px-2 mr-2 text-gray-700 hover:bg-[#CCDCE1] text-xl font-bold">+</button>
-        <input type="text" class= "focus:outline-none leading-relaxed  " placeholder="Add a new project!" v-model="newProject">
+        <input type="text" class= "focus:outline-none leading-relaxed  " placeholder="Añadir proyecto nuevo!" v-model="newProject">
     </form>
     </div>
     <div class="grid grid-cols-3 justify-center  justify-items-center mx-40 ">
       <div v-for="(actualProject, index) in projectStore.projects" :key="index" >
-        <ProjectCard @deleteProject="deleteProject(actualProject.id)" :projectCard="actualProject"/> 
+        <ProjectCard @deleteProject="deleteProject(actualProject.id)" :projectCard="actualProject"  /> 
       </div>
     </div>
     <div class="flex justify-center">
@@ -20,14 +20,17 @@
 <script setup>
 
 import {ref} from "vue";
-import {useProjectStore} from '../store/project'
-import {useUserStore} from '../store/user'
+import {useProjectStore} from '../store/project';
+import {useUserStore} from '../store/user';
+import {useTaskStore} from '../store/task';
 import ProjectCard from "../components/ProjectCard.vue";
 import Header from "../components/Header.vue";
 
 const newProject= ref ("");
 const userStore = useUserStore();
 const projectStore = useProjectStore();
+const taskStore = useTaskStore();
+
 
 fetchProjects();
 

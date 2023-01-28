@@ -1,7 +1,8 @@
 <template>
     <div class="w-[320px] h-[180px]  bg-[#FCEDBF] rounded-xl border-2 flex flex-col justify-center items-center mb-12">
         <div class="mt-10">
-            <router-link :to="{name: 'project',params: {id: projectCard.id}}"><span class="font-semibold text-2xl ">{{ projectCard.name }}</span></router-link>
+            <router-link :to="{name: 'project',params: {id: projectCard.id}}">
+            <span class="font-semibold text-2xl hover:text-gray-500 ">{{ projectCard.name }}</span></router-link>
         </div>
         <div class="flex mb-6">
             <CalendarDaysIcon class="h-6 w-6 mr-1"/>
@@ -15,13 +16,12 @@
 
 <script setup>
 
-
 import { CalendarDaysIcon } from '@heroicons/vue/24/outline';
 import { TrashIcon } from '@heroicons/vue/24/outline';
 
-
 const props = defineProps(['projectCard']);
 const emits = defineEmits (["deleteProject"]);
+
 
 function deleteProject(){
     emits("deleteProject");
