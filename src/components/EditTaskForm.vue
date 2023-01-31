@@ -23,8 +23,8 @@
             </div>
             </div>
             <div class="text-center m-10">
-                <button @click="submitForm(taskEdit)" type="button" class="border-solid border-2  px-2 hover:bg-[#CCDCE1] text-black font-semibold rounded mr-2">Save</button>
-                <button @click="cancelForm" type="button" class="border-solid border-2  px-2 hover:bg-[#FAD5CD] text-black font-semibold rounded">Cancel</button>
+                <button @click="submitForm(taskEdit)" type="button" class="border-solid border-2 w-[70px] px-2 hover:bg-[#CCDCE1] text-black font-semibold rounded mr-2">Save</button>
+                <button @click="cancelForm" type="button" class="border-solid border-2 w-[70px] px-2 hover:bg-[#FAD5CD] text-black font-semibold rounded">Cancel</button>
             </div>  
         </form>
     </div>
