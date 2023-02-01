@@ -1,6 +1,6 @@
 <template>
     <div class="w-[320px] h-[180px]  bg-[#FCEDBF] rounded-xl border-2 flex flex-col justify-center items-center mb-12">
-        <div class="mt-10">
+        <div class="mt-10 text-center">
             <router-link :to="{name: 'project',params: {id: projectCard.id}}">
             <span class="font-semibold text-2xl hover:text-gray-500 ">{{ projectCard.name }}</span></router-link>
         </div>

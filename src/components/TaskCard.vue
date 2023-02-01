@@ -30,7 +30,7 @@ import { RocketLaunchIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps(['taskCard']);
 const emits = defineEmits(["deleteTask", "updateStatus", "showEditTask"]);
-const show = ref(true);
+const show = ref(false);
 
 
 function deleteTask(){

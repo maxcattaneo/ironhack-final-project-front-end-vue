@@ -59,16 +59,6 @@ async function fetchProjects() {
   }
 };
 
-/*async function  addProject() {
-  try {
-    await projectStore.addProject(newProject.value, userStore.user.id);
-    newProject.value="";
-    await projectStore.fetchProjects();
-  }
-  catch(e){
-    alert(e.message);
-  }
-};*/
 async function  addProject() {
   try {
     let newProject = new Object();
@@ -81,7 +71,6 @@ async function  addProject() {
     alert(e.message);
   }
 };
-
 
 async function deleteProject(idProject) {
   await projectStore.deleteProject(idProject);

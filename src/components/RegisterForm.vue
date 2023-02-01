@@ -24,7 +24,7 @@
         </button>
         <div class="flex">
           <h1 class="mt-3 pr-2 font-semibold ">Already have an account?</h1>
-          <button class="bg-white  hover:text-black text-[#538898]  font-semibold  pt-3">
+          <button @click="changeLogin" class="bg-white  hover:text-black text-[#538898]  font-semibold  pt-3" type="button">
             Login
           </button>
         </div>
@@ -37,11 +37,12 @@ import {ref} from "vue";
 import {useUserStore} from '../store/user';
 import { useRouter } from "vue-router";
 
-const userStore = ref (useUserStore());
+const userStore = useUserStore();
 const email = ref("");
 const password = ref("");
 const repeatPassword = ref("");
 const router = useRouter();
+const emits = defineEmits (["changeLogin"]);
 
 async function  signUp() {
   if (password.value === repeatPassword.value) {
@@ -51,6 +52,10 @@ async function  signUp() {
   } catch(e) {
     alert(e.message);
   }}
+};
+
+function changeLogin() {
+  emits ("changeLogin");
 };
 
 </script>
