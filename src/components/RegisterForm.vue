@@ -48,7 +48,7 @@ async function  signUp() {
   if (password.value === repeatPassword.value) {
   try {
     await userStore.signUp(email.value, password.value);
-    router.push({ path: "/auth" })
+    changeLogin();
   } catch(e) {
     alert(e.message);
   }}

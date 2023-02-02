@@ -40,8 +40,7 @@ export const useUserStore = defineStore("user", {
         throw error;
       }
     },
-    // Hacer sign in
-    // Hacer log out
+
     persist: {
       enabled: true,
       strategies: [

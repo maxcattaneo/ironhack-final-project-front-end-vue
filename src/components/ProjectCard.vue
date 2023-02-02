@@ -28,12 +28,9 @@ const emits = defineEmits(["deleteProject","showEditProject"]);
 function deleteProject(){
     emits("deleteProject");
 };
-
 function showEditProject(){
     emits("showEditProject", props.projectCard)
 };
-
-
 
 </script>
 

@@ -57,8 +57,6 @@ async function cancelForm() {
     emits ("cancelCard");
 };
 
-console.log(props.taskEdit)
-
 </script>
 
 <style>

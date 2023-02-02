@@ -50,7 +50,7 @@
     
 </template>
 
-<script setup> 
+<script setup>
 
 import {ref} from "vue";
 import {useTaskStore} from '../store/task';
@@ -67,7 +67,6 @@ const taskStore = useTaskStore();
 const show = ref(false);
 const projectId = ref(route.params.id)
 let editingTask= ref ("");
-let nameProject= ref (""); 
 
 
 refreshAllList();

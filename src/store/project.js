@@ -34,12 +34,8 @@ export const useProjectStore = defineStore("projects", {
       const { data, error } = await supabase
       .from('Projects')
       .delete()
-      .eq('id', projectId)
+      .eq('id', projectId);
+      if (error) throw error;
     }
-
-    // Hacer POST
-    // Hacer el PUT (edit)
-    // Hacer el delete
-    // Hacer el PUT (cambiar entre completada y pendiente)
   },
 });

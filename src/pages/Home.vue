@@ -73,8 +73,13 @@ async function  addProject() {
 };
 
 async function deleteProject(idProject) {
+  try{
   await projectStore.deleteProject(idProject);
   await projectStore.fetchProjects();
+  }
+  catch(e){
+    alert("no puede eliminar proyecto porque tiene tareas pendientes");
+  }
   
 };
 

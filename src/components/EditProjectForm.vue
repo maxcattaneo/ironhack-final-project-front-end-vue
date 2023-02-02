@@ -4,7 +4,7 @@
         <form>
             <div class="ml-20">
             <div class="mb-1">
-                <label class="mr-2 font-semibold">Nombre:</label>
+                <label class="mr-2 font-semibold">Project name:</label>
                 <input v-model="projectEdit.name" type="text">
             </div>
             </div>

@@ -57,21 +57,6 @@ export const useTaskStore = defineStore("tasks", {
         .delete()
         .eq("id", TaskId);
     },
-    /*async updateStatus(TaskId) {
-      const { data, error } = await supabase
-        .from("Tasks")
-        .update({ status: 2 })
-        .eq("id", TaskId);
-      if (error) throw error;
-    },
-    async updateStatus3(TaskId) {
-      const { data, error } = await supabase
-        .from("Tasks")
-        .update({ status: 3 })
-        .eq("id", TaskId);
-      if (error) throw error;
-    },*/
-
     async updateTaskStatus(TaskId, statusNumber) {
       const { data, error } = await supabase
         .from("Tasks")
@@ -79,10 +64,5 @@ export const useTaskStore = defineStore("tasks", {
         .eq("id", TaskId);
       if (error) throw error;
     },
-
-    // Hacer POST
-    // Hacer el PUT (edit)
-    // Hacer el delete
-    // Hacer el PUT (cambiar entre completada y pendiente)
   },
 });

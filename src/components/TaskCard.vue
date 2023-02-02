@@ -1,8 +1,7 @@
 <template>
-    <div class="w-[320px] h-[180px] rounded-xl border-2 flex flex-col justify-evenly  mb-8">
+    <div class="w-[320px] h-[180px] rounded-xl border-2 flex flex-col justify-evenly  mb-8 "  >
         <div class="flex justify-end mr-8 ">
-            <RocketLaunchIcon @click="updateStatus" v-if="show" class="h-6 w-6 hover:text-[#538898]"/>
-            <h1 class="font-semibold text-[#538898]" v-else>Tarea completada!</h1>
+            <RocketLaunchIcon @click="updateStatus" class="h-6 w-6 hover:text-[#538898]"/>
         </div>
         <div class="flex flex-col text-center items-center">
             <span class="font-semibold text-xl">{{ taskCard.name }}</span>
@@ -30,7 +29,6 @@ import { RocketLaunchIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps(['taskCard']);
 const emits = defineEmits(["deleteTask", "updateStatus", "showEditTask"]);
-const show = ref(false);
 
 
 function deleteTask(){
@@ -42,7 +40,6 @@ function updateStatus(){
 function showEditTask(){
     emits("showEditTask", props.taskCard)
 };
-
 
 
 
