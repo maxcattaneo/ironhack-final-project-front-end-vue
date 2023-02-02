@@ -31,15 +31,11 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+
 import {useTaskStore} from '../store/task';
 
 
 const taskStore = useTaskStore();
-const newTaskName = ref ("");
-const editComment = ref ("");
-const selectedDate = ref ("");
-const selectedOption = ref ("");
 const options = ['easy', 'middle', 'difficult'];
 const props = defineProps(['taskEdit']);
 const emits = defineEmits (["savedCard", "cancelCard"]);

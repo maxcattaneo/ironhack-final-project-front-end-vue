@@ -18,12 +18,10 @@
 
 <script setup>
 
-import {ref} from "vue";
 import {useProjectStore} from '../store/project';
 
 
 const projectStore = useProjectStore();
-const newTaskName = ref ("");
 const props = defineProps(['projectEdit']);
 const emits = defineEmits (["savedProject", "cancelProject"]);
   

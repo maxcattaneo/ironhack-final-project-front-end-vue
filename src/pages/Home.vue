@@ -26,16 +26,14 @@
 import {ref} from "vue";
 import {useProjectStore} from '../store/project';
 import {useUserStore} from '../store/user';
-import {useTaskStore} from '../store/task';
 import ProjectCard from "../components/ProjectCard.vue";
 import Header from "../components/Header.vue";
 import EditProjectForm from '../components/EditProjectForm.vue';
 import Overlay from '../components/Overlay.vue';
 
-const newProject= ref ("");
+
 const userStore = useUserStore();
 const projectStore = useProjectStore();
-const taskStore = useTaskStore();
 const show = ref(false);
 let editingProject= ref ("");
 
@@ -78,7 +76,7 @@ async function deleteProject(idProject) {
   await projectStore.fetchProjects();
   }
   catch(e){
-    alert("no puede eliminar proyecto porque tiene tareas pendientes");
+    alert("No puede eliminar este proyecto porque tiene tareas pendientes. Elimine las tareas asociadas.");
   }
   
 };

@@ -54,7 +54,6 @@
 
 import {ref} from "vue";
 import {useTaskStore} from '../store/task';
-import {useProjectStore} from '../store/project';
 import { useRoute } from 'vue-router'
 import Header from '../components/Header.vue';
 import TaskCard from '../components/TaskCard.vue';
@@ -62,7 +61,6 @@ import EditTaskForm from '../components/EditTaskForm.vue';
 import Overlay from '../components/Overlay.vue'
 
 const route = useRoute()
-const projectStore = useProjectStore();
 const taskStore = useTaskStore();
 const show = ref(false);
 const projectId = ref(route.params.id)

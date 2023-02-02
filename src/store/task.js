@@ -5,9 +5,9 @@ import { supabase } from "../supabase";
 
 export const useTaskStore = defineStore("tasks", {
   state: () => ({
-    toDoTasks: null,
-    doingTasks: null,
-    doneTasks: null,
+    toDoTasks: [],
+    doingTasks: [],
+    doneTasks: [],
   }),
   actions: {
     async fetchToDoTasks(projectId) {

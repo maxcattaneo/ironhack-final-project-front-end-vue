@@ -21,7 +21,6 @@
 
 <script setup>
 
-import {ref} from "vue";
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/outline';
 import { PencilIcon } from '@heroicons/vue/24/outline';
 import { TrashIcon } from '@heroicons/vue/24/outline';

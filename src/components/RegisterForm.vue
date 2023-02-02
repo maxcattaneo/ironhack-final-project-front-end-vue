@@ -35,13 +35,12 @@
 <script setup>
 import {ref} from "vue";
 import {useUserStore} from '../store/user';
-import { useRouter } from "vue-router";
+
 
 const userStore = useUserStore();
 const email = ref("");
 const password = ref("");
 const repeatPassword = ref("");
-const router = useRouter();
 const emits = defineEmits (["changeLogin"]);
 
 async function  signUp() {
